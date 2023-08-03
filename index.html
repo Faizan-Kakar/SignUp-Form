@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <form class="signup_Form" id="form" action="/register" method="post">
+
+    <!-- form header -->
+    <div class="formheader">
+        <h1>CREATE ACCOUNT</h1>
+    </div>
+
+    <!-- form body -->
+    <div class="formbody">
+
+        <div class="horizontal">
+            <div class="formgroup left">
+                <label class="labels" for="first_name">First Name*</label>
+                <input class="inputs" type="text" id="first_name" placeholder="enter your first name" required>
+            </div>
+            <div class="formgroup right">
+                <label class="labels" for="last_name">Last Name</label>
+                <input class="inputs" type="text" id="last_name" placeholder="enter your last name">
+            </div>
+        </div>
+
+        <div class="formgroup email">
+            <label class="labels" for="email">Email*</label>
+            <input class="inputs" type="text" id="email" placeholder="enter your email " required>
+        </div>
+
+        <div class="horizontal">
+            <div class="formgroup left">
+                <label class="labels" for="password">Password*</label>
+                <input class="inputs" type="password" id="password" placeholder="enter your password">
+            </div>
+            <div class="formgroup right">
+                <label class="labels" for="confirm_password">Confirm Password*</label>
+                <input class="inputs" type="password" id="confirm_password" placeholder="enter your password again" required>
+            </div>
+        </div>
+
+        <div class="horizontal">
+            <div class="formgroup left">
+                <label class="labels">Gender</label>
+                <div class="input_group">
+                    <label for="male">
+                        <input type="radio" name="gender" id="male" value="male">Male
+                    </label>
+                    <label for="female">
+                        <input type="radio" name="gender" id="female" value="female">Female
+                    </label>
+                </div>
+            </div>
+            <div class="formgroup right">
+                <label class="labels" >Hobblies</label>
+                <div class="input_group">
+                    <label for="music"><input type="checkbox" value="music">Music</label>
+                    <label for="sports"><input type="checkbox" value="sports">Sports</label>
+                    <label for="travel"><input type="checkbox" value="travel">Travel</label>
+                    <label for="movies"><input type="checkbox" value="movies">Movies</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="horizontal">
+            <div class="formgroup left">
+                <label class="labels" for="employement_type">Employment Type</label>
+                <select class="inputs" id="employment_type">
+                    <option value="Employed">Employed</option>
+                    <option value="Self-Employed">Self-Employed</option>
+                    <option value="Umemployed">Umemployed</option>
+                </select>
+            </div>
+            <div class="formgroup right">
+                <label class="labels" for="income">Income</label>
+                <input class="" type="range" min="20" max="100" step="5" value="0" id="income" onclick="change()" style="height:28px;width:78%;padding:0; color:#1BBA93 ;">
+                <span id="range_label">20K</span>
+            </div>
+        </div>
+
+        <div class="horizontal">
+            <div class="formgroup left">
+                <label class="labels" for="picture">Upload Profile Picture</label>
+                <input class="" type="file" id="picture" size="80">
+            </div>
+            <div class="formgroup right">
+                <label class="labels" for="age">Age</label>
+                <input class="inputs" type="number" id="age" required>
+            </div>
+        </div>
+
+        <div class="formgroup email">
+            <label class="labels" for="textarea">Bio</label>
+            <textarea id="textarea" name="bio" class="inputs" ></textarea>
+        </div>
+
+    </div>
+
+    <!-- form footer -->
+    <div class="formfooter">
+        <div class="footer_inner">
+            <button class="btn" id="btn" onclick="validation()" >Create</button>
+        </div>
+    </div>
+</form>
+    
+    <script src="index.js"></script>
+</body>
+</html>
