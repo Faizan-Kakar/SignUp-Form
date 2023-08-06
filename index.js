@@ -1,79 +1,31 @@
 
-// Changing the income vlaue according to slider
-var range_label = document.getElementById('range_label');
-var income = document.getElementById('income');
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import {getDatabase , push, ref, set} from "firebase/database";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
 
-function change() {
-    range_label.innerText = income.value+'K';
-}
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDRSCqCApTe3kHC2b4UGoQav9OBj-zYIN0",
+//   authDomain: "signup-form-dec69.firebaseapp.com",
+//   databaseURL: "https://signup-form-dec69-default-rtdb.firebaseio.com",
+//   projectId: "signup-form-dec69",
+//   storageBucket: "signup-form-dec69.appspot.com",
+//   messagingSenderId: "1094744720298",
+//   appId: "1:1094744720298:web:3a184a83030ed7585de1d3"
+// };
 
-// From Validation
-function validation() {
-    
-    console.log("its running");
-    
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
 
-    const nameRegex = new RegExp(/^[a-z\s'-]{1,50}$/i); /*Numbers are not allowed*/
-    const emailRegex = new RegExp(/^[\w.-]+@[a-z\d-]+\.[a-z]{2,}$/i); /*email format*/
-    const passwordRegex = new RegExp(/^[\w.*&%-]{6,50}$/i);  /*atleast 6 characteres*/
+// const db = getDatabase();
 
-    let firstName = document.getElementById("first_name");
-    let last_name = document.getElementById("last_name");
-    let email = document.getElementById("email");
-    let password = document.getElementById("password");
-    let confirm_password = document.getElementById("confirm_password");
+// set(push(ref(db , "users/")), {
+//   name : "faizan khan",
+//   class : '4rth sem'
+// }).then(()=>{
+//   alert("Its working");
+// });
 
-    if(nameRegex.test(firstName.value))
-    {
-        if(nameRegex.test(last_name.value))
-        {
-         if(emailRegex.test(email.value))
-         {
-          if(passwordRegex.test(password.value))
-          {
-            if(password.value == confirm_password.value)
-            {
-                 return;
-            }
-            else{
-                alert("password don't match")
-            }
-          }
-          else{
-            alert("password should be atleast 6 characters");
-          }
-         }
-         else{
-            alert("write the email in correct form")
-         }
-        }
-        else{
-            alert("Number are not allowed in last name");
-        }
-    }
-    else{
-        alert("Number are not allowed in first name");
-    }
 
-}
-
-// Connecting to mysql
-
-const mysql = require("mysql");
-
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Khan123**",
-    database: "signUp"
-  });
-
-  db.connect(err => {
-    if (err) { throw err; }
-    console.log("DB connection OK");
-  });
-
-  db.query("SELECT * FROM `users`", (err, results) => {
-    if (err) { throw err; }
-    console.log(results);
-  });

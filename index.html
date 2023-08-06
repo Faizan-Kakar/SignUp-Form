@@ -60,10 +60,10 @@
             <div class="formgroup right">
                 <label class="labels" >Hobblies</label>
                 <div class="input_group">
-                    <label for="music"><input type="checkbox" value="music">Music</label>
-                    <label for="sports"><input type="checkbox" value="sports">Sports</label>
-                    <label for="travel"><input type="checkbox" value="travel">Travel</label>
-                    <label for="movies"><input type="checkbox" value="movies">Movies</label>
+                    <label for="music"><input id="music" type="checkbox" value="music">Music</label>
+                    <label for="sports"><input id="sports" type="checkbox" value="sports">Sports</label>
+                    <label for="travel"><input id="travel" type="checkbox" value="travel">Travel</label>
+                    <label for="movies"><input id="movies" type="checkbox" value="movies">Movies</label>
                 </div>
             </div>
         </div>
@@ -79,8 +79,8 @@
             </div>
             <div class="formgroup right">
                 <label class="labels" for="income">Income</label>
-                <input class="" type="range" min="20" max="100" step="5" value="0" id="income" onclick="change()" style="height:28px;width:78%;padding:0; color:#1BBA93 ;">
-                <span id="range_label">20K</span>
+                <input class="" type="range" min="20" max="100" step="5" value="0"  id="income"    style="height:28px;width:78%;padding:0; color:#1BBA93 ;">
+                 <span id="range_label">20K</span>
             </div>
         </div>
 
@@ -97,7 +97,7 @@
 
         <div class="formgroup email">
             <label class="labels" for="textarea">Bio</label>
-            <textarea id="textarea" name="bio" class="inputs" ></textarea>
+            <textarea id="bio" name="bio" class="inputs" ></textarea>
         </div>
 
     </div>
@@ -105,11 +105,142 @@
     <!-- form footer -->
     <div class="formfooter">
         <div class="footer_inner">
-            <button class="btn" id="btn" onclick="validation()" >Create</button>
+            <button class="btn" id="btn" type="submit" >Create</button>
         </div>
     </div>
 </form>
-    
-    <script src="index.js"></script>
+
+<script type="module">
+
+// firebase connectivity start
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getDatabase , set , ref, push, get, child } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+
+    import { getStorage, ref as firebaseRef } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js";
+   
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyDRSCqCApTe3kHC2b4UGoQav9OBj-zYIN0",
+  authDomain: "signup-form-dec69.firebaseapp.com",
+  databaseURL: "https://signup-form-dec69-default-rtdb.firebaseio.com",
+  projectId: "signup-form-dec69",
+  storageBucket: "signup-form-dec69.appspot.com",
+  messagingSenderId: "1094744720298",
+  appId: "1:1094744720298:web:3a184a83030ed7585de1d3"
+};
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // Firebase connectivity ends..................................
+
+// Storing data to database
+function dataStorage() {   
+  
+  const db = getDatabase();
+  
+  let firstName = document.getElementById('first_name');
+  let lastName = document.getElementById('last_name');
+  let email = document.getElementById('email');
+  let password = document.getElementById('password');
+  let hobbies = "";
+  let hobby = () =>{
+  let hobbies1 = document.getElementById('music');
+  let hobbies2 = document.getElementById('sports');
+  let hobbies3 = document.getElementById('travel');
+  let hobbies4 = document.getElementById('movies');
+  if(hobbies1.checked){ hobbies= hobbies + " " + hobbies1.value};
+  if(hobbies2.checked){ hobbies= hobbies + " " + hobbies2.value};
+  if(hobbies3.checked){ hobbies= hobbies + " " + hobbies3.value};
+  if(hobbies4.checked){ hobbies= hobbies + " " + hobbies4.value};
+  }
+  hobby();
+  let employmentType = document.getElementById('employment_type');
+  let income = document.getElementById('income');
+  let picture = document.getElementById('picture');
+  let age = document.getElementById('age');
+  let bio = document.getElementById('bio');
+
+  set(push(ref(db, '<SignUp-form/users')) , {
+    First_Name : firstName.value,
+    Last_Name : lastName.value,
+    Email : email.value,
+    Password : password.value,
+    Hobbies : hobbies,
+    Employment_Type : employmentType.value,
+    Income : income.value,
+    Age : age.value,
+    Bio : bio.value
+    }).then( () =>{
+      alert("Data is stored successfully");
+  })
+  }
+// Storing data end................................................
+
+// ActionListener to submit button
+const btn = document.getElementById('btn');
+  btn.addEventListener('click', function (event) {
+    event.preventDefault();
+    validation();
+  })
+
+// From Validation
+function validation() {
+  
+ 
+  console.log("its running");
+  const nameRegex = new RegExp(/^[a-z\s'-]{1,50}$/i); 
+  const emailRegex = new RegExp(/^[\w.-]+@[a-z\d-]+\.[a-z]{2,}$/i); 
+  const passwordRegex = new RegExp(/^[\w.*&%-]{6,50}$/i);  
+
+  let firstName = document.getElementById("first_name");
+  let last_name = document.getElementById("last_name");
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+  let confirm_password = document.getElementById("confirm_password");
+
+  if(nameRegex.test(firstName.value))
+  {
+      if(nameRegex.test(last_name.value))
+      {
+       if(emailRegex.test(email.value))
+       {
+        if(passwordRegex.test(password.value))
+        {
+          if(password.value == confirm_password.value)
+          {
+               dataStorage();
+               return;
+          }
+          else{
+              alert("password don't match")
+          }
+        }
+        else{
+          alert("password should be atleast 6 characters");
+        }
+       }
+       else{
+          alert("write the email in correct form")
+       }
+      }
+      else{
+          alert("Number are not allowed in last name");
+      }
+  }
+  else{
+      alert("Number are not allowed in first name");
+  }
+
+}
+// Validation End...................................................
+
+
+// Changing the income vlaue according to slider
+var range_label = document.getElementById('range_label');
+var income = document.getElementById('income');
+income.addEventListener("click", function (){
+    range_label.innerText = income.value+'K';
+});
+  </script>
+
 </body>
 </html>
