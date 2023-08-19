@@ -80,32 +80,33 @@ body{
     align-items: center;
 }
 
+input[type="radio"]{
+    accent-color: #1BBA93;
+}
+
+input[type="range"]{
+    width: 80%;
+    accent-color: #1BBA93;
+}
+
+
+
+#range_label{
+    width:15%;
+    padding:5px;
+    background-color: #1BBA93;
+    color:white;
+    border-radius: 5px;
+    font-size: 17px;
+    position: relative;
+    top:-8px;
+}
+
 input[type="file"] {
     outline: none;
     cursor:pointer;
     font-size: 17px;
    }
-
-input[type="range"]{
-    width: 80%;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    background-color: rgb(196, 67, 67); 
-    /* Change the color to blue */
-  }
-
-#range_label{
-    width:15%;
- padding:5px;
- background-color: #1BBA93;
- color:white;
- border-radius: 5px;
- font-size: 17px;
- position: relative;
- top:-8px;
-}
-
 .formgroup textarea{
     height: 80px;
 }
